@@ -1,4 +1,5 @@
 import React from 'react';
+import { StatusBar } from 'react-native';
 import AppLoading from 'expo-app-loading';
 import {
   useFonts,
@@ -16,6 +17,9 @@ export default function App() {
     return <AppLoading />
 
   return (
-    <Routes />
+    <>
+      <StatusBar barStyle="default" />
+      <Routes />
+    </>
   )
 }

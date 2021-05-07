@@ -1656,6 +1656,13 @@
     "@babel/runtime" "^7.7.2"
     regenerator-runtime "^0.13.3"
 
+"@krosben/react-native-gravatar@^0.0.1":
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/@krosben/react-native-gravatar/-/react-native-gravatar-0.0.1.tgz#f8bffe014c8b22b6b4b572349f5542e68d0f8ef8"
+  integrity sha512-cKOwG++Rea+su5JONLBKEqkhgcq/nBfDWRTmmlJ/JZY0pBcY6GHND/46yJ/RnLdzQNc9nzjCOxIdZxQJxJYCOw==
+  dependencies:
+    blueimp-md5 "^2.12.0"
+
 "@react-native-community/cli-debugger-ui@^4.13.1":
   version "4.13.1"
   resolved "https://registry.yarnpkg.com/@react-native-community/cli-debugger-ui/-/cli-debugger-ui-4.13.1.tgz#07de6d4dab80ec49231de1f1fbf658b4ad39b32c"
@@ -2274,7 +2281,7 @@ bindings@^1.5.0:
   dependencies:
     file-uri-to-path "1.0.0"
 
-blueimp-md5@^2.10.0:
+blueimp-md5@^2.10.0, blueimp-md5@^2.12.0:
   version "2.18.0"
   resolved "https://registry.yarnpkg.com/blueimp-md5/-/blueimp-md5-2.18.0.tgz#1152be1335f0c6b3911ed9e36db54f3e6ac52935"
   integrity sha512-vE52okJvzsVWhcgUHOv+69OG3Mdg151xyn41aVQN/5W5S+S43qZhxECtYLAEHMSFWX6Mv5IZrzj3T5+JqXfj5Q==
@@ -5406,6 +5413,16 @@ react-is@^17.0.1:
   version "17.0.2"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-17.0.2.tgz#e691d4a8e9c789365655539ab372762b0efb54f0"
   integrity sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==
+
+react-native-android-immersive-mode@^1.3.0:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/react-native-android-immersive-mode/-/react-native-android-immersive-mode-1.3.0.tgz#09ea88b6407724deec3e6532f76aee704b930741"
+  integrity sha512-ADKzigTK+xfr31LIw5iIro/4Yp/h+9gawndO1RUcXGqp94OhctP3XzRjVvGUTbZl7DDxBpfTgRrJPt1ZXZ3fGQ==
+
+react-native-eva-icons@^1.3.1:
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/react-native-eva-icons/-/react-native-eva-icons-1.3.1.tgz#1e6e019b0fd3cb1669db50bd6bbdaa6d89327593"
+  integrity sha512-emd/aYXuOacuDVTx0SJoLi+xsOdCNdljQB3PTNCM9AQ3m/smG0X1TN0+ihelPO7MqoHzaH0h6lbANtwxGUy8Fw==
 
 react-native-gesture-handler@~1.10.2:
   version "1.10.3"
