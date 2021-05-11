@@ -7,6 +7,7 @@ import { Welcome } from '../pages/Welcome';
 import { Login } from '../pages/login/Login';
 import { Register } from '../pages/register/Register';
 import { Home } from '../pages/Home';
+import { SubSingle } from '../pages/SubSingle';
 
 const stackRoutes = createStackNavigator();
 
@@ -34,6 +35,10 @@ const AppRoutes: React.FC = () => (
         <stackRoutes.Screen
             name="Home"
             component={Home}
+        />
+        <stackRoutes.Screen
+            name="SubSingle"
+            component={SubSingle}
         />
     </stackRoutes.Navigator>
 )

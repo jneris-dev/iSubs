@@ -5,12 +5,13 @@ import {
     Text,
 } from 'react-native';
 import { SvgFromUri } from 'react-native-svg';
-import { RectButton, RectButtonProps } from 'react-native-gesture-handler';
+import { RectButtonProps } from 'react-native-gesture-handler';
 
 import colors from '../styles/colors';
 import fonts from '../styles/fonts';
 
 interface CardProps extends RectButtonProps {
+    id: string;
     title: string;
     date: string;
     price: string;
@@ -18,6 +19,7 @@ interface CardProps extends RectButtonProps {
 }
 
 export function CardSignature({
+    id,
     title,
     date,
     price,
@@ -32,11 +34,11 @@ export function CardSignature({
                     style={styles.image}
                 />
             </View>
-            <View>
+            <View style={{ marginLeft: 22 }}>
                 <Text style={styles.title}>{title}</Text>
                 <Text style={styles.subtitle}>{date}</Text>
             </View>
-            <View>
+            <View style={{ marginLeft: 'auto' }}>
                 <Text style={[styles.title, { textAlign: 'right' }]}>{price}</Text>
                 <Text style={[styles.subtitle, { textAlign: 'right' }]}>/{cicle}</Text>
             </View>
@@ -50,14 +52,14 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         backgroundColor: colors.white,
         alignItems: 'center',
-        justifyContent: 'space-between',
+        justifyContent: 'flex-start',
         flexDirection: 'row',
-        padding: 15,
+        padding: 13,
         marginBottom: 23,
     },
     title: {
         fontFamily: fonts.heading,
-        fontSize: 16,
+        fontSize: 14,
         color: colors.heading,
         textTransform: 'capitalize',
     },
