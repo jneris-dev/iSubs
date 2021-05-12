@@ -23,7 +23,7 @@ export function Home() {
     }
     return (
         <SafeAreaView style={styles.constainer}>
-            <Header />
+            <Header title="Home" />
             <View style={styles.wrapContent}>
                 <View style={styles.boxTotal}>
                     <View style={styles.iconTotalBox}>
@@ -60,6 +60,7 @@ export function Home() {
                         <CardSignature
                             id="1"
                             title="spotify"
+                            slug="spotify"
                             date="Mai 08, 03:00 pm"
                             price="R$19,90"
                             cicle="mensal"
@@ -68,6 +69,7 @@ export function Home() {
                     <CardSignature
                         id="2"
                         title="netflix"
+                        slug="netflix"
                         date="Mai 25, 11:00 am"
                         price="R$32,90"
                         cicle="mensal"
@@ -75,6 +77,7 @@ export function Home() {
                     <CardSignature
                         id="3"
                         title="crunchyroll"
+                        slug="crunchyroll"
                         date="Jan 03, 01:00 pm"
                         price="R$315,00"
                         cicle="anual"
@@ -96,6 +99,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'flex-start',
         paddingHorizontal: 30,
+        marginTop: 30
     },
     boxTotal: {
         backgroundColor: colors.white,

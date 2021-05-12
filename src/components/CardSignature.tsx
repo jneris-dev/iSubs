@@ -13,6 +13,7 @@ import fonts from '../styles/fonts';
 interface CardProps extends RectButtonProps {
     id: string;
     title: string;
+    slug: string;
     date: string;
     price: string;
     cicle: string;
@@ -21,6 +22,7 @@ interface CardProps extends RectButtonProps {
 export function CardSignature({
     id,
     title,
+    slug,
     date,
     price,
     cicle,
@@ -30,7 +32,7 @@ export function CardSignature({
         <View style={styles.container}>
             <View>
                 <SvgFromUri
-                    uri={`https://jneris.com.br/api/src/assets/iSubs/signatures/${title}.svg`}
+                    uri={`https://jneris.com.br/api/src/assets/iSubs/signatures/${slug}.svg`}
                     style={styles.image}
                 />
             </View>

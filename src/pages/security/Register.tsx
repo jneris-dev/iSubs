@@ -12,11 +12,13 @@ import {
     SafeAreaView,
 } from 'react-native';
 import { AntDesign, MaterialIcons } from '@expo/vector-icons';
+import { Icon } from 'react-native-eva-icons';
 import { SvgFromUri } from 'react-native-svg';
 import { useNavigation } from '@react-navigation/core';
 
 import colors from '../../styles/colors';
 import fonts from '../../styles/fonts';
+import { Header } from '../../components/Header';
 
 export function Register() {
     const navegation = useNavigation();
@@ -25,16 +27,17 @@ export function Register() {
         navegation.navigate('Login');
     }
 
+    function handleNewSub() {
+        navegation.navigate('NewSub');
+    }
+
     return (
         <SafeAreaView style={styles.container}>
             <KeyboardAvoidingView
                 style={styles.container}
                 behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
             >
-                <MaterialIcons
-                    name="keyboard-arrow-left"
-                    style={styles.arrowIcon}
-                />
+                <Header title="Register" />
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                     <View style={styles.content}>
                         <SvgFromUri
@@ -79,6 +82,7 @@ export function Register() {
                             <TouchableOpacity
                                 style={styles.button}
                                 activeOpacity={0.7}
+                                onPress={handleNewSub}
                             >
                                 <Text style={styles.buttonLabel}>Cadastrar</Text>
                             </TouchableOpacity>
@@ -103,12 +107,6 @@ const styles = StyleSheet.create({
         width: '100%',
         justifyContent: 'flex-end',
         alignItems: 'center',
-    },
-    arrowIcon: {
-        marginTop: 20,
-        paddingHorizontal: 20,
-        fontSize: 30,
-        color: colors.placeholder,
     },
     image: {
         width: 178,

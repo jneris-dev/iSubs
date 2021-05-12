@@ -1,18 +1,43 @@
 import React from 'react';
 import {
     View,
-    StyleSheet
+    StyleSheet,
+    Text
 } from 'react-native';
 import { Icon } from 'react-native-eva-icons';
 import Gravatar from '@krosben/react-native-gravatar';
+import { useNavigation } from '@react-navigation/native';
+import { RectButtonProps } from 'react-native-gesture-handler';
 
 import colors from '../styles/colors';
+import fonts from '../styles/fonts';
 
-export function Header() {
+interface HeaderProps extends RectButtonProps {
+    title: string;
+}
+
+export function Header({
+    title,
+    ...rest
+}: HeaderProps) {
+    const navegation = useNavigation();
     return (
         <View style={styles.constainer}>
-            <Icon name='options-2-outline' fill={colors.heading} style={styles.icon} />
-            <Gravatar email="site@jneris.com.br" size={80} defaultImage="identicon" />
+            {title != 'Home'
+                ? <Icon
+                    name='chevron-left-outline'
+                    fill={colors.heading}
+                    style={styles.icon}
+                    onPress={() => navegation.goBack()}
+                /> : <View>
+                    <Text style={styles.titleUser}>Olá,</Text>
+                    <Text style={styles.subtitleUser}>João Neris</Text>
+                </View>
+            }
+            {title != 'Home' && title != 'Login' && title != 'Register'
+                ? <Text style={styles.title}>{title}</Text> : null}
+            {title != 'Login' && title != 'Register' && title != 'Configurações'
+                ? <Gravatar email="site@jneris.com.br" size={80} defaultImage="retro" /> : <View style={styles.icon} />}
         </View>
     )
 }
@@ -22,11 +47,28 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        padding: 30,
+        paddingHorizontal: 30,
+        marginTop: 30,
         width: '100%',
     },
+    title: {
+        fontFamily: fonts.heading,
+        color: colors.heading,
+        fontSize: 13,
+        textAlign: 'center'
+    },
+    titleUser: {
+        fontFamily: fonts.text,
+        color: colors.heading,
+        fontSize: 13,
+    },
+    subtitleUser: {
+        fontFamily: fonts.heading,
+        color: colors.heading,
+        fontSize: 20,
+    },
     icon: {
-        width: 25,
-        height: 25,
+        width: 30,
+        height: 30,
     }
 })

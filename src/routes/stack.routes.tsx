@@ -1,13 +1,18 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
+import AuthRoutes from './tab.routes';
 
 import colors from '../styles/colors';
 
 import { Welcome } from '../pages/Welcome';
-import { Login } from '../pages/login/Login';
-import { Register } from '../pages/register/Register';
+import { Login } from '../pages/security/Login';
+import { Register } from '../pages/security/Register';
 import { Home } from '../pages/Home';
 import { SubSingle } from '../pages/SubSingle';
+import { Stats } from '../pages/Stats';
+import { NewSub } from '../pages/NewSub';
+import { Notifications } from '../pages/Notifications';
+import { Settings } from '../pages/settings/Settings';
 
 const stackRoutes = createStackNavigator();
 
@@ -34,11 +39,27 @@ const AppRoutes: React.FC = () => (
         />
         <stackRoutes.Screen
             name="Home"
-            component={Home}
+            component={AuthRoutes}
         />
         <stackRoutes.Screen
             name="SubSingle"
             component={SubSingle}
+        />
+        <stackRoutes.Screen
+            name="Stats"
+            component={AuthRoutes}
+        />
+        <stackRoutes.Screen
+            name="NewSub"
+            component={NewSub || AuthRoutes}
+        />
+        <stackRoutes.Screen
+            name="Notifications"
+            component={AuthRoutes}
+        />
+        <stackRoutes.Screen
+            name="Settings"
+            component={AuthRoutes}
         />
     </stackRoutes.Navigator>
 )

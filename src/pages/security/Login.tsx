@@ -13,10 +13,12 @@ import {
 } from 'react-native';
 import Gravatar from '@krosben/react-native-gravatar';
 import { AntDesign, MaterialIcons } from '@expo/vector-icons';
+import { Icon } from 'react-native-eva-icons';
 import { useNavigation } from '@react-navigation/core';
 
 import colors from '../../styles/colors';
 import fonts from '../../styles/fonts';
+import { Header } from '../../components/Header';
 
 export function Login() {
     const navegation = useNavigation();
@@ -31,14 +33,11 @@ export function Login() {
                 style={styles.container}
                 behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
             >
-                <MaterialIcons
-                    name="keyboard-arrow-left"
-                    style={styles.arrowIcon}
-                />
+                <Header title="Login" />
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                     <View style={styles.content}>
                         <View style={styles.content}>
-                            <Gravatar email="site@jneris.com.br" size={250} defaultImage="identicon" />
+                            <Gravatar email="site@jneris.com.br" size={250} defaultImage="retro" style={{ borderRadius: 125 }} />
                         </View>
                         <View style={styles.boxForm}>
                             <Text style={styles.title}>
@@ -77,7 +76,7 @@ export function Login() {
                                 <Text style={styles.buttonLabel}>Acessar</Text>
                             </TouchableOpacity>
                             <Text style={styles.forgotPass}>
-                                É novo por aqui? Crie uma conta.
+                                Esqueceu a senha? Clique aqui
                             </Text>
                         </View>
                     </View>
@@ -98,17 +97,6 @@ const styles = StyleSheet.create({
         width: '100%',
         alignItems: 'center',
         justifyContent: 'center',
-    },
-    arrowIcon: {
-        marginTop: 20,
-        paddingHorizontal: 20,
-        fontSize: 30,
-        color: colors.placeholder,
-    },
-    profileImage: {
-        width: 120,
-        height: 120,
-        marginTop: 30
     },
     boxForm: {
         backgroundColor: colors.background_light,
