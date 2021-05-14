@@ -1,4 +1,3 @@
-import Gravatar from '@krosben/react-native-gravatar';
 import React from 'react';
 import {
     StyleSheet,
@@ -6,6 +5,8 @@ import {
     Text
 } from 'react-native';
 import { Icon } from 'react-native-eva-icons';
+import Gravatar from '@krosben/react-native-gravatar';
+import { useNavigation } from '@react-navigation/core';
 
 import { Header } from '../../components/Header';
 
@@ -13,6 +14,24 @@ import colors from '../../styles/colors';
 import fonts from '../../styles/fonts';
 
 export function Settings() {
+    const navegation = useNavigation();
+
+    function handleEditAccount() {
+        navegation.navigate('EditAccount');
+    }
+    function handleFingerprint() {
+        navegation.navigate('Fingerprint');
+    }
+    function handleCurrency() {
+        navegation.navigate('Currency');
+    }
+    function handlePrivacyPolicy() {
+        navegation.navigate('PrivacyPolicy');
+    }
+    function handleAbout() {
+        navegation.navigate('About');
+    }
+
     return (
         <View style={styles.container}>
             <Header title="Configurações" />
@@ -29,7 +48,7 @@ export function Settings() {
                             fill={colors.placeholder}
                             style={styles.icon}
                         />
-                        <Text style={styles.menuLink}>Editar conta</Text>
+                        <Text style={styles.menuLink} onPress={handleEditAccount}>Editar conta</Text>
                     </View>
                     <View style={styles.menuItem}>
                         <Icon
@@ -37,7 +56,7 @@ export function Settings() {
                             fill={colors.placeholder}
                             style={styles.icon}
                         />
-                        <Text style={styles.menuLink}>Impressão digital</Text>
+                        <Text style={styles.menuLink} onPress={handleFingerprint}>Impressão digital</Text>
                     </View>
                     <View style={styles.menuItem}>
                         <Icon
@@ -45,7 +64,7 @@ export function Settings() {
                             fill={colors.placeholder}
                             style={styles.icon}
                         />
-                        <Text style={styles.menuLink}>Moeda</Text>
+                        <Text style={styles.menuLink} onPress={handleCurrency}>Moeda</Text>
                     </View>
                     <View style={styles.menuItem}>
                         <Icon
@@ -53,7 +72,7 @@ export function Settings() {
                             fill={colors.placeholder}
                             style={styles.icon}
                         />
-                        <Text style={styles.menuLink}>Política de privacidade</Text>
+                        <Text style={styles.menuLink} onPress={handlePrivacyPolicy}>Política de privacidade</Text>
                     </View>
                     <View style={styles.menuItem}>
                         <Icon
@@ -61,7 +80,7 @@ export function Settings() {
                             fill={colors.placeholder}
                             style={styles.icon}
                         />
-                        <Text style={styles.menuLink}>Sobre</Text>
+                        <Text style={styles.menuLink} onPress={handleAbout}>Sobre</Text>
                     </View>
                 </View>
             </View>

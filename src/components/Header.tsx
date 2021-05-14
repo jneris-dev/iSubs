@@ -37,7 +37,7 @@ export function Header({
             {title != 'Home' && title != 'Login' && title != 'Register'
                 ? <Text style={styles.title}>{title}</Text> : null}
             {title != 'Login' && title != 'Register' && title != 'Configurações'
-                ? <Gravatar email="site@jneris.com.br" size={80} defaultImage="retro" /> : <View style={styles.icon} />}
+                ? <Gravatar email="site@jneris.com.br" size={70} defaultImage="retro" /> : <View style={styles.icon} />}
         </View>
     )
 }
@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
         paddingHorizontal: 30,
-        marginTop: 30,
+        marginTop: 20,
         width: '100%',
     },
     title: {
