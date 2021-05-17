@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     StyleSheet,
     Text,
@@ -10,11 +10,13 @@ import {
     Platform,
     Keyboard,
     SafeAreaView,
+    Alert,
 } from 'react-native';
 import Gravatar from '@krosben/react-native-gravatar';
 import { AntDesign, MaterialIcons } from '@expo/vector-icons';
 import { Icon } from 'react-native-eva-icons';
 import { useNavigation } from '@react-navigation/core';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import colors from '../../styles/colors';
 import fonts from '../../styles/fonts';
@@ -22,9 +24,42 @@ import { Header } from '../../components/Header';
 
 export function Login() {
     const navegation = useNavigation();
+    const [userEmail, setUserEmail] = useState<string>();
+    const [userPass, setUserPass] = useState<string>();
+    const [visible, setVisibility] = useState(false);
 
-    function handleHome() {
-        navegation.navigate('Home');
+    const icon = !visible ? 'eye' : 'eye-off';
+
+    useEffect(() => {
+        async function loadStorageUserEmail() {
+            const email = await AsyncStorage.getItem('@isubs:email');
+            setUserEmail(email || '');
+        }
+
+        loadStorageUserEmail();
+    }, []);
+
+    useEffect(() => {
+        async function loadStorageUserPass() {
+            const pass = await AsyncStorage.getItem('@isubs:password');
+            setUserPass(pass || '');
+        }
+
+        loadStorageUserPass();
+    }, []);
+
+    function handleRegister() {
+        navegation.navigate('Register');
+    }
+
+    async function handleLogin() {
+        if (!userEmail && !userPass)
+            return Alert.alert('Usuário não cadastrado');
+        try {
+            navegation.navigate('Home');
+        } catch {
+            return Alert.alert('Não foi possivel acessar.');
+        }
     }
 
     return (
@@ -37,46 +72,57 @@ export function Login() {
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                     <View style={styles.content}>
                         <View style={styles.content}>
-                            <Gravatar email="site@jneris.com.br" size={250} defaultImage="retro" style={{ borderRadius: 125 }} />
+                            <Gravatar
+                                email={!userEmail ? 'email@email.com' : `${userEmail}`}
+                                size={250}
+                                defaultImage="retro"
+                                style={{ borderRadius: 125 }}
+                            />
                         </View>
                         <View style={styles.boxForm}>
                             <Text style={styles.title}>
                                 Acessar
                             </Text>
-                            <Text style={styles.label}>Nome de Usuário</Text>
+                            <Text style={styles.label}>E-mail</Text>
                             <TextInput
-                                style={[styles.input, { backgroundColor: "#E5E5E5", color: "#A8AAAB" }]}
+                                style={[styles.input,
+                                (!userEmail) && { backgroundColor: '#E5E5E5', color: '#A8AAAB' }
+                                ]}
+                                value={!userEmail ? 'e-mail não identificado' : userEmail}
                                 editable={false}
-                                value="jneris"
                             />
                             <Text style={styles.label}>Senha</Text>
                             <View>
                                 <TextInput
-                                    style={[styles.input, { justifyContent: 'flex-end' }]}
-                                    secureTextEntry={true}
-                                    returnKeyType='go'
+                                    style={[styles.input, { justifyContent: 'flex-end' },
+                                    (!userPass) && { backgroundColor: '#E5E5E5', color: '#A8AAAB' }
+                                    ]}
+                                    value={!userPass ? 'senha não identificada' : userPass}
+                                    editable={false}
+                                    secureTextEntry={!userPass ? visible : !visible}
                                     autoCorrect={false}
-                                    keyboardType="visible-password"
                                 />
                                 <TouchableOpacity
-                                    onPress={() => { }}
+                                    onPress={() => setVisibility(!visible)}
                                     style={styles.eyeButton}
                                 >
-                                    <AntDesign
-                                        name="eye"
-                                        style={styles.eyeIcon}
+                                    <Icon
+                                        name={icon}
+                                        fill={colors.red}
+                                        width={15}
+                                        height={15}
                                     />
                                 </TouchableOpacity>
                             </View>
                             <TouchableOpacity
                                 style={styles.button}
                                 activeOpacity={0.7}
-                                onPress={handleHome}
+                                onPress={handleLogin}
                             >
                                 <Text style={styles.buttonLabel}>Acessar</Text>
                             </TouchableOpacity>
-                            <Text style={styles.forgotPass}>
-                                Esqueceu a senha? Clique aqui
+                            <Text style={styles.forgotPass} onPress={handleRegister}>
+                                Não possui uma conta? Crie Agora
                             </Text>
                         </View>
                     </View>

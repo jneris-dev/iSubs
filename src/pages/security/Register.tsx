@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
     StyleSheet,
     Text,
@@ -10,11 +10,13 @@ import {
     Platform,
     Keyboard,
     SafeAreaView,
+    Alert,
 } from 'react-native';
 import { AntDesign, MaterialIcons } from '@expo/vector-icons';
 import { Icon } from 'react-native-eva-icons';
 import { SvgFromUri } from 'react-native-svg';
 import { useNavigation } from '@react-navigation/core';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import colors from '../../styles/colors';
 import fonts from '../../styles/fonts';
@@ -22,13 +24,54 @@ import { Header } from '../../components/Header';
 
 export function Register() {
     const navegation = useNavigation();
+    const [isFilled, setIsFilled] = useState(false);
+    const [isFocused, setIsFocused] = useState(false);
+    const [name, setName] = useState<string>();
+    const [emailAddress, setEmailAddress] = useState<string>();
+    const [password, setPassword] = useState<string>();
+    const [visible, setVisibility] = React.useState(false);
+
+    const icon = !visible ? 'eye' : 'eye-off';
 
     function handleLogin() {
         navegation.navigate('Login');
     }
 
-    function handleNewSub() {
-        navegation.navigate('NewSub');
+    async function handleNewSub() {
+        if (!name)
+            return Alert.alert('Insira todas as informações para proceguir');
+        if (!emailAddress)
+            return Alert.alert('Insira um endereço de email para proceguir');
+        if (!password)
+            return Alert.alert('Insira uma senha para proceguir');
+        try {
+            await AsyncStorage.setItem('@isubs:user', name);
+            await AsyncStorage.setItem('@isubs:email', emailAddress);
+            await AsyncStorage.setItem('@isubs:password', password);
+            navegation.navigate('NewSub');
+        } catch {
+            return Alert.alert('Não foi possivel criar sua conta.');
+        }
+    }
+
+    function handleInputBlur() {
+        setIsFocused(false);
+        setIsFilled(!!name);
+    }
+
+    function handleInputChangeName(value: string) {
+        setIsFilled(!!value);
+        setName(value);
+    }
+
+    function handleInputChangeEmail(value: string) {
+        setIsFilled(!!value);
+        setEmailAddress(value);
+    }
+
+    function handleInputChangePass(value: string) {
+        setIsFilled(!!value);
+        setPassword(value);
     }
 
     return (
@@ -51,31 +94,39 @@ export function Register() {
                             <Text style={styles.label}>Como podemos chamar você?</Text>
                             <TextInput
                                 style={styles.input}
-                                autoCompleteType="username"
+                                autoCompleteType="name"
+                                onChangeText={handleInputChangeName}
+                                onBlur={handleInputBlur}
                             />
                             <Text style={styles.label}>E-mail</Text>
                             <TextInput
-                                style={styles.input}
+                                style={[styles.input, { textTransform: 'lowercase' }]}
                                 textContentType="emailAddress"
+                                autoCapitalize="none"
                                 autoCompleteType="email"
                                 keyboardType="email-address"
+                                onChangeText={handleInputChangeEmail}
+                                onBlur={handleInputBlur}
                             />
                             <Text style={styles.label}>Senha</Text>
                             <View>
                                 <TextInput
                                     style={[styles.input, { justifyContent: 'flex-end' }]}
-                                    secureTextEntry={true}
                                     returnKeyType='go'
+                                    secureTextEntry={!visible}
                                     autoCorrect={false}
-                                    keyboardType="visible-password"
+                                    onChangeText={handleInputChangePass}
+                                    onBlur={handleInputBlur}
                                 />
                                 <TouchableOpacity
-                                    onPress={() => { }}
+                                    onPress={() => setVisibility(!visible)}
                                     style={styles.eyeButton}
                                 >
-                                    <AntDesign
-                                        name="eye"
-                                        style={styles.eyeIcon}
+                                    <Icon
+                                        name={icon}
+                                        fill={colors.red}
+                                        width={15}
+                                        height={15}
                                     />
                                 </TouchableOpacity>
                             </View>

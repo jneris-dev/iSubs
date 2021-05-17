@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     StyleSheet,
     View,
@@ -7,6 +7,7 @@ import {
 import { Icon } from 'react-native-eva-icons';
 import Gravatar from '@krosben/react-native-gravatar';
 import { useNavigation } from '@react-navigation/core';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { Header } from '../../components/Header';
 
@@ -15,32 +16,54 @@ import fonts from '../../styles/fonts';
 
 export function Settings() {
     const navegation = useNavigation();
+    const [userName, setUserName] = useState<string>();
+    const [userEmail, setUserEmail] = useState<string>();
 
-    function handleEditAccount() {
-        navegation.navigate('EditAccount');
-    }
-    function handleFingerprint() {
-        navegation.navigate('Fingerprint');
-    }
-    function handleCurrency() {
-        navegation.navigate('Currency');
-    }
-    function handlePrivacyPolicy() {
-        navegation.navigate('PrivacyPolicy');
-    }
-    function handleAbout() {
-        navegation.navigate('About');
-    }
+    const gravatarImg = `${userEmail}`;
+
+    useEffect(() => {
+        async function loadStorageUserName() {
+            const user = await AsyncStorage.getItem('@isubs:user');
+            setUserName(user || '');
+        }
+
+        loadStorageUserName();
+    }, []);
+
+    useEffect(() => {
+        async function loadStorageUserEmail() {
+            const email = await AsyncStorage.getItem('@isubs:email');
+            setUserEmail(email || '');
+        }
+
+        loadStorageUserEmail();
+    }, []);
+
+    // function handleEditAccount() {
+    //     navegation.navigate('EditAccount');
+    // }
+    // function handleFingerprint() {
+    //     navegation.navigate('Fingerprint');
+    // }
+    // function handleCurrency() {
+    //     navegation.navigate('Currency');
+    // }
+    // function handlePrivacyPolicy() {
+    //     navegation.navigate('PrivacyPolicy');
+    // }
+    // function handleAbout() {
+    //     navegation.navigate('About');
+    // }
 
     return (
         <View style={styles.container}>
             <Header title="Configurações" />
             <View style={styles.content}>
                 <View style={styles.profile}>
-                    <Gravatar email="site@jneris.com.br" size={250} defaultImage="retro" style={{ borderRadius: 125 }} />
+                    <Gravatar email={gravatarImg} size={250} defaultImage="retro" style={{ borderRadius: 125 }} />
                 </View>
-                <Text style={styles.name}>João Neris</Text>
-                <Text style={styles.mail}>jneris@email.com</Text>
+                <Text style={styles.name}>{userName}</Text>
+                <Text style={styles.mail}>{userEmail}</Text>
                 <View style={styles.menu}>
                     <View style={styles.menuItem}>
                         <Icon
@@ -48,7 +71,7 @@ export function Settings() {
                             fill={colors.placeholder}
                             style={styles.icon}
                         />
-                        <Text style={styles.menuLink} onPress={handleEditAccount}>Editar conta</Text>
+                        <Text style={styles.menuLink} onPress={() => { }}>Editar conta</Text>
                     </View>
                     <View style={styles.menuItem}>
                         <Icon
@@ -56,7 +79,7 @@ export function Settings() {
                             fill={colors.placeholder}
                             style={styles.icon}
                         />
-                        <Text style={styles.menuLink} onPress={handleFingerprint}>Impressão digital</Text>
+                        <Text style={styles.menuLink} onPress={() => { }}>Impressão digital</Text>
                     </View>
                     <View style={styles.menuItem}>
                         <Icon
@@ -64,7 +87,7 @@ export function Settings() {
                             fill={colors.placeholder}
                             style={styles.icon}
                         />
-                        <Text style={styles.menuLink} onPress={handleCurrency}>Moeda</Text>
+                        <Text style={styles.menuLink} onPress={() => { }}>Moeda</Text>
                     </View>
                     <View style={styles.menuItem}>
                         <Icon
@@ -72,7 +95,7 @@ export function Settings() {
                             fill={colors.placeholder}
                             style={styles.icon}
                         />
-                        <Text style={styles.menuLink} onPress={handlePrivacyPolicy}>Política de privacidade</Text>
+                        <Text style={styles.menuLink} onPress={() => { }}>Política de privacidade</Text>
                     </View>
                     <View style={styles.menuItem}>
                         <Icon
@@ -80,7 +103,7 @@ export function Settings() {
                             fill={colors.placeholder}
                             style={styles.icon}
                         />
-                        <Text style={styles.menuLink} onPress={handleAbout}>Sobre</Text>
+                        <Text style={styles.menuLink} onPress={() => { }}>Sobre</Text>
                     </View>
                 </View>
             </View>

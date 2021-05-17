@@ -3,7 +3,8 @@ import {
     StyleSheet,
     View,
     Text,
-    SafeAreaView
+    SafeAreaView,
+    ScrollView
 } from 'react-native';
 import { SvgFromUri } from 'react-native-svg';
 import { CategoryStats } from '../components/CategoryStats';
@@ -21,21 +22,53 @@ export function Stats() {
                 style={styles.image}
             />
             <View style={styles.boxInfos}>
-                <View style={styles.boxAllMoney}>
-                    <Text style={styles.titleAllMoney}>Histórico de Gasto</Text>
-                    <Text style={styles.cashAllMoney}>R$ 285,50</Text>
-                </View>
-                <View style={styles.categories}>
-                    <CategoryStats
-                        id="1"
-                        title="Entretenimento"
-                        currency="R$"
-                        price="223"
-                        count="6"
-                        rate="60"
-                        category="training"
-                    />
-                </View>
+                <ScrollView
+                    showsVerticalScrollIndicator={false}
+                    showsHorizontalScrollIndicator={false}
+                >
+                    <View style={styles.boxAllMoney}>
+                        <Text style={styles.titleAllMoney}>Histórico de Gasto</Text>
+                        <Text style={styles.cashAllMoney}>R$ 285,50</Text>
+                    </View>
+                    <View style={styles.categories}>
+                        <CategoryStats
+                            id="1"
+                            title="Entretenimento"
+                            currency="R$"
+                            price="223"
+                            count="6"
+                            rate="60%"
+                            category="training"
+                        />
+                        <CategoryStats
+                            id="2"
+                            title="Produtividade"
+                            currency="R$"
+                            price="97"
+                            count="2"
+                            rate="20%"
+                            category="productivity"
+                        />
+                        <CategoryStats
+                            id="3"
+                            title="Jogos"
+                            currency="R$"
+                            price="187"
+                            count="4"
+                            rate="40%"
+                            category="games"
+                        />
+                        <CategoryStats
+                            id="4"
+                            title="Música e áudio"
+                            currency="R$"
+                            price="19"
+                            count="1"
+                            rate="10%"
+                            category="music"
+                        />
+                    </View>
+                </ScrollView>
             </View>
         </SafeAreaView>
     )
@@ -58,8 +91,9 @@ const styles = StyleSheet.create({
         width: '100%',
         borderTopLeftRadius: 25,
         borderTopRightRadius: 25,
-        padding: 30,
-        marginTop: 30,
+        paddingTop: 30,
+        paddingHorizontal: 30,
+        marginTop: 15,
         flex: 1,
     },
     boxAllMoney: {

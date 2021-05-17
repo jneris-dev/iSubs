@@ -29,13 +29,20 @@ export function CategoryStats({
     category,
     ...rest
 }: CategoryProps) {
-    const colorCat = category;
-    const rating = rate;
     return (
         <View style={styles.category}>
             <View style={styles.categoryText}>
-                <Text style={[styles.categoryTitleBullet,
-                { color: colorCat }]}>
+                <Text style={[
+                    styles.categoryTitleBullet,
+                    (category == 'games') &&
+                    { color: colors.games },
+                    (category == 'productivity') &&
+                    { color: colors.productivity },
+                    (category == 'training') &&
+                    { color: colors.training },
+                    (category == 'music') &&
+                    { color: colors.music }
+                ]}>
                     ●
                 </Text>
                 <Text style={styles.categoryTitle}>
@@ -46,8 +53,18 @@ export function CategoryStats({
                 </Text>
             </View>
             <View style={styles.categoryBar}>
-                <View style={[styles.categoryBarValue,
-                { width: rating, backgroundColor: colorCat }]}></View>
+                <View style={[
+                    styles.categoryBarValue,
+                    { width: `${rate}` },
+                    (category == 'games') &&
+                    { backgroundColor: colors.games },
+                    (category == 'productivity') &&
+                    { backgroundColor: colors.productivity },
+                    (category == 'training') &&
+                    { backgroundColor: colors.training },
+                    (category == 'music') &&
+                    { backgroundColor: colors.music }
+                ]}></View>
             </View>
         </View>
     )
@@ -67,15 +84,17 @@ const styles = StyleSheet.create({
         fontFamily: fonts.text,
         fontSize: 15,
         color: colors.heading,
+        paddingLeft: 15,
     },
     categoryTitleBullet: {
         position: 'absolute',
-        left: -15,
+        left: 0,
     },
     categorySubtitle: {
         fontFamily: fonts.text,
         fontSize: 10,
-        color: colors.placeholder
+        color: colors.placeholder,
+        paddingLeft: 15,
     },
     categoryBar: {
         position: 'relative',
@@ -89,6 +108,6 @@ const styles = StyleSheet.create({
         position: 'absolute',
         height: 5,
         right: 0,
-        borderRadius: 5
+        borderRadius: 100,
     },
 })
