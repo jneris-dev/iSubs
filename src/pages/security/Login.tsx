@@ -27,6 +27,7 @@ export function Login() {
     const [userEmail, setUserEmail] = useState<string>();
     const [userPass, setUserPass] = useState<string>();
     const [visible, setVisibility] = useState(false);
+    const [pass, setPass] = useState('');
 
     const icon = !visible ? 'eye' : 'eye-off';
 
@@ -52,9 +53,11 @@ export function Login() {
         navegation.navigate('Register');
     }
 
-    async function handleLogin() {
+    async function handleHome() {
         if (!userEmail && !userPass)
             return Alert.alert('Usuário não cadastrado');
+        if (pass != userPass)
+            return Alert.alert('Senha incorreta');
         try {
             navegation.navigate('Home');
         } catch {
@@ -85,8 +88,7 @@ export function Login() {
                             </Text>
                             <Text style={styles.label}>E-mail</Text>
                             <TextInput
-                                style={[styles.input,
-                                (!userEmail) && { backgroundColor: '#E5E5E5', color: '#A8AAAB' }
+                                style={[styles.input, { backgroundColor: '#E5E5E5', color: '#A8AAAB' }
                                 ]}
                                 value={!userEmail ? 'e-mail não identificado' : userEmail}
                                 editable={false}
@@ -97,10 +99,10 @@ export function Login() {
                                     style={[styles.input, { justifyContent: 'flex-end' },
                                     (!userPass) && { backgroundColor: '#E5E5E5', color: '#A8AAAB' }
                                     ]}
-                                    value={!userPass ? 'senha não identificada' : userPass}
-                                    editable={false}
                                     secureTextEntry={!userPass ? visible : !visible}
                                     autoCorrect={false}
+                                    onChangeText={pass => setPass(pass)}
+                                    defaultValue={pass}
                                 />
                                 <TouchableOpacity
                                     onPress={() => setVisibility(!visible)}
@@ -117,7 +119,7 @@ export function Login() {
                             <TouchableOpacity
                                 style={styles.button}
                                 activeOpacity={0.7}
-                                onPress={handleLogin}
+                                onPress={handleHome}
                             >
                                 <Text style={styles.buttonLabel}>Acessar</Text>
                             </TouchableOpacity>

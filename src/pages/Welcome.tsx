@@ -1,23 +1,51 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     Text,
     StyleSheet,
     SafeAreaView,
     TouchableOpacity,
     View,
+    Alert,
 } from 'react-native';
 import { SvgFromUri } from 'react-native-svg';
 import { AntDesign } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/core';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import colors from '../styles/colors';
 import fonts from '../styles/fonts';
 
 export function Welcome() {
     const navegation = useNavigation();
+    const [userEmail, setUserEmail] = useState<string>();
+    const [userPass, setUserPass] = useState<string>();
 
-    function handleLogin() {
-        navegation.navigate('Login');
+    useEffect(() => {
+        async function loadStorageUserEmail() {
+            const email = await AsyncStorage.getItem('@isubs:email');
+            setUserEmail(email || '');
+        }
+
+        loadStorageUserEmail();
+    }, []);
+
+    useEffect(() => {
+        async function loadStorageUserPass() {
+            const pass = await AsyncStorage.getItem('@isubs:password');
+            setUserPass(pass || '');
+        }
+
+        loadStorageUserPass();
+    }, []);
+
+    async function handleLogin() {
+        if (!userEmail && !userPass)
+            return Alert.alert('Usuário não cadastrado');
+        try {
+            navegation.navigate('Home');
+        } catch {
+            return Alert.alert('Não foi possivel acessar.');
+        }
     }
 
     function handleRegister() {

@@ -61,7 +61,11 @@ export function Header({
             {title != 'Home' && title != 'Login' && title != 'Register'
                 ? <Text style={styles.title}>{title}</Text> : null}
             {title != 'Login' && title != 'Register' && title != 'Configurações'
-                ? <Gravatar email={gravatarImg} size={70} defaultImage="retro" /> : <View style={styles.icon} />}
+                ? <Gravatar
+                    email={!userEmail ? 'email@email.com' : `${userEmail}`}
+                    size={70}
+                    defaultImage="retro"
+                /> : <View style={styles.icon} />}
         </View>
     )
 }

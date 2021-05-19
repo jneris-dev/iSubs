@@ -19,8 +19,6 @@ export function Settings() {
     const [userName, setUserName] = useState<string>();
     const [userEmail, setUserEmail] = useState<string>();
 
-    const gravatarImg = `${userEmail}`;
-
     useEffect(() => {
         async function loadStorageUserName() {
             const user = await AsyncStorage.getItem('@isubs:user');
@@ -60,7 +58,12 @@ export function Settings() {
             <Header title="Configurações" />
             <View style={styles.content}>
                 <View style={styles.profile}>
-                    <Gravatar email={gravatarImg} size={250} defaultImage="retro" style={{ borderRadius: 125 }} />
+                    <Gravatar
+                        email={!userEmail ? 'email@email.com' : `${userEmail}`}
+                        size={250}
+                        defaultImage="retro"
+                        style={{ borderRadius: 125 }}
+                    />
                 </View>
                 <Text style={styles.name}>{userName}</Text>
                 <Text style={styles.mail}>{userEmail}</Text>
